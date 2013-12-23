@@ -1,5 +1,4 @@
-﻿body,
-html {
+﻿body {
     font: 15px arial;
     margin: 0;
     padding: 0;
@@ -44,7 +43,7 @@ section h3 {
 
 section dl {
     margin: 0;
-    font-family: monospace;
+    font: 16px monospace;
 }
 
 section dt {
@@ -75,4 +74,22 @@ footer p:first-child {
 footer a {
     color: white;
     text-decoration: none;
+}
+
+@media only screen and (max-width: 1024px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1em;
+    }
+
+    h3 {
+        font-size: 1.8em !important;
+    }
+
+    dl {
+        font-size: 1.5em !important;
+    }
 }

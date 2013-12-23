@@ -13,22 +13,25 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Visual Studio keyboard shortcuts - complete list</title>
-    <link href="~/css/site.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <title>Visual Studio 2013 keyboard shortcuts - complete list</title>
+    <link href="~/css/site.min.css" rel="stylesheet" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    <meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio 2013" />
+    <meta name="keywords" content="shortcut, shortcuts, keybinding, vs, visual studio" />
 </head>
 <body>
 
-    <header>
-        <h1>Visual Studio keyboard shortcuts</h1>
+    <header role="banner">
+        <h1>Visual Studio 2013 keyboard shortcuts</h1>
         <h2>The complete list</h2>
     </header>
 
-    <section>
+    <section role="main">
         @RenderPage("commands.cshtml")
     </section>
 
-    <footer>
+    <footer role="contentinfo">
         <p>@Commands.ShortcutCount shortcuts in total</p>
         <p>
             Copyright &copy; 2013 
