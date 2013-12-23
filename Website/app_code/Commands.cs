@@ -11,9 +11,12 @@ using System.Xml;
 /// </summary>
 public class Commands
 {
+    public static int ShortcutCount = 0;
+
     public static Dictionary<string, List<Binding>> GenerateList()
     {
         Dictionary<string, List<Binding>> dic = new Dictionary<string, List<Binding>>();
+        ShortcutCount = 0;
 
         XmlDocument doc = new XmlDocument();
         doc.Load(HostingEnvironment.MapPath("~/app_data/commands.xml"));
@@ -25,7 +28,7 @@ public class Commands
             string name = node.Attributes["name"].InnerText;
             string shortcut = node.Attributes["shortcut"].InnerText;
             int index = name.IndexOf('.');
-            string prefix = index > 0 ? CleanName(name.Substring(0, index)) : "Misc";
+            string prefix = index > 0 ? CleanName(name.Substring(0, index))  : "Misc";
             string displayName = index > 0 ? name.Substring(name.LastIndexOf('.') + 1) : name;
 
             if (currentPrefix != prefix)
@@ -45,8 +48,10 @@ public class Commands
                 dic[prefix].Add(binding);
                 lastBinding = binding;
             }
+            
+            ShortcutCount += 1;
         }
-
+        
         return dic;
     }
 
@@ -55,9 +60,11 @@ public class Commands
         StringBuilder sb = new StringBuilder();
         sb.Append(name[0]);
 
-        foreach (char c in name.Skip(1))
+        for (int i = 1; i < name.Length; i++)
         {
-            if (char.IsUpper(c))
+            char c = name[i];
+
+            if (char.IsUpper(c) && !char.IsUpper(name[i - 1]))
             {
                 sb.Append(" ");
             }

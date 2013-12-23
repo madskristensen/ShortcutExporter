@@ -1,7 +1,9 @@
-﻿body {
+﻿body,
+html {
     font: 15px arial;
-    margin: 1em;
+    margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 header {
@@ -23,6 +25,8 @@ section {
     -moz-column-gap: 2em;
     -webkit-column-gap: 2em;
     column-gap: 2em;
+    margin: 1em;
+    padding: 0;
 }
 
 section article {
@@ -55,4 +59,20 @@ section dd {
 section dd:before {
     content: '→ ';
     color: dodgerblue;
+}
+
+footer {
+    text-align: center;
+    background: #333;
+    color: white;
+    padding: 1px 0;
+}
+
+footer p:first-child {
+    font-size: 1.4em;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }

@@ -1,17 +1,18 @@
-﻿body {
+﻿body, html {
     font: 15px arial;
-    margin: 1em;
+    margin: 0;
     padding: 0;
+    height: 100%;
 }
 
-header{
-    text-align:center;
+header {
+    text-align: center;
     font-size: 1.4em;
     margin: 1.5em 0;
 
-    h2, h1{
+    h2, h1 {
         margin: 0;
-        padding: 0; 
+        padding: 0;
     }
 }
 
@@ -22,6 +23,8 @@ section {
     -moz-column-gap: 2em;
     -webkit-column-gap: 2em;
     column-gap: 2em;
+    margin: 1em;
+    padding: 0;
 
     article {
         -webkit-column-break-inside: avoid;
@@ -30,7 +33,7 @@ section {
         width: 370px;
     }
 
-    h3{
+    h3 {
         font-size: 1.2em;
         border-bottom: 1px solid dodgerblue;
         color: forestgreen;
@@ -50,8 +53,24 @@ section {
         margin-left: 10px;
     }
 
-    dd:before{
-        content: '→ ';
-        color: dodgerblue;
+        dd:before {
+            content: '→ ';
+            color: dodgerblue;
+        }
+}
+
+footer {
+    text-align: center;
+    background: #333;
+    color: white;
+    padding: 1px 0;
+
+    p:first-child {
+        font-size: 1.4em;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
     }
 }
