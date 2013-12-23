@@ -1,0 +1,32 @@
+﻿@using System.Web.Caching;
+@{
+    if (!Request.IsLocal)
+    {
+        Response.Cache.SetValidUntilExpires(true);
+        Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/app_data")));
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/css")));
+    }
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Visual Studio keyboard shortcuts - complete list</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+    <header>
+        <h1>Visual Studio keyboard shortcuts</h1>
+        <h2>The complete list</h2>
+    </header>
+
+    <section>
+        @RenderPage("commands.cshtml")
+    </section>
+
+</body>
+</html>

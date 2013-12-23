@@ -1,0 +1,57 @@
+﻿body {
+    font: 15px arial;
+    margin: 1em;
+    padding: 0;
+}
+
+header{
+    text-align:center;
+    font-size: 1.4em;
+    margin: 1.5em 0;
+
+    h2, h1{
+        margin: 0;
+        padding: 0; 
+    }
+}
+
+section {
+    -moz-columns: 350px auto;
+    -webkit-columns: 350px auto;
+    columns: 350px auto;
+    -moz-column-gap: 2em;
+    -webkit-column-gap: 2em;
+    column-gap: 2em;
+
+    article {
+        -webkit-column-break-inside: avoid;
+        overflow: hidden;
+        margin: 0 auto 1em auto;
+        width: 370px;
+    }
+
+    h3{
+        font-size: 1.2em;
+        border-bottom: 1px solid dodgerblue;
+        color: forestgreen;
+    }
+
+    dl {
+        margin: 0;
+        font-family: monospace;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    dd {
+        margin-left: 10px;
+    }
+
+    dd:before{
+        content: '→ ';
+        color: dodgerblue;
+    }
+}
