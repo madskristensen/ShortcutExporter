@@ -1,21 +1,21 @@
 ﻿@{
-    var bindings = Commands.GenerateList();
+	var bindings = Commands.GenerateList();
 
-    foreach (string key in bindings.Keys)
-    {
-        <article>
-            <h3>@key</h3>
-            <dl>
-                @foreach (Binding binding in bindings[key])
-                {
-                    <dt title="@binding.FullName">@binding.DisplayName</dt>
+	foreach (string key in bindings.Keys)
+	{
+		<article>
+			<h3>@key</h3>
+			<dl>
+				@foreach (Binding binding in bindings[key])
+				{
+					<dt title="@binding.FullName">@binding.DisplayName</dt>
 
-                    foreach (string shortcut in binding.Shortcuts)
-                    {
-                        <dd>@shortcut</dd>
-                    }
-                }
-            </dl>
-        </article>
-    }
+					foreach (string shortcut in binding.Shortcuts)
+					{
+						<dd>@shortcut</dd>
+					}
+				}
+			</dl>
+		</article>
+	}
 }

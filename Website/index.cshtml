@@ -1,42 +1,63 @@
 ﻿@using System.Web.Caching;
 @{
-    if (!Request.IsLocal)
-    {
-        Response.Cache.SetValidUntilExpires(true);
-        Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
-        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
-        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/app_data")));
-        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/css")));
-    }
+	Response.Cache.SetExpires(DateTime.Now.AddDays(30));
+	Response.Cache.SetCacheability(HttpCacheability.Public);
+	Response.Cache.SetValidUntilExpires(true);
+	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
+	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/app_data")));
+	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/css")));
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Visual Studio 2013 keyboard shortcuts - complete list</title>
-    <link href="~/css/site.min.css" rel="stylesheet" />
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+	<meta charset="utf-8" />
+	<title>Visual Studio 2013 keyboard shortcuts - complete list</title>
+	<link href="@Fingerprint("/css/site.min.css")" rel="stylesheet" />
+	<link rel="icon" href="@Fingerprint("/favicon.ico")" type="image/x-icon" />
 
-    <meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio 2013" />
-    <meta name="keywords" content="shortcut, shortcuts, keybinding, vs, visual studio" />
+	<meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio 2013" />
+	<meta name="keywords" content="shortcut, shortcuts, keybinding, vs, visual studio" />
 </head>
 <body>
 
-    <header role="banner">
-        <h1>Visual Studio 2013 keyboard shortcuts</h1>
-        <h2>The complete list</h2>
-    </header>
+	<header role="banner">
+		<h1>Visual Studio 2013 keyboard shortcuts</h1>
+		<h2>The complete list</h2>
+	</header>
 
-    <section role="main">
-        @RenderPage("commands.cshtml")
-    </section>
+	<section role="main">
+		@RenderPage("commands.cshtml")
+	</section>
 
-    <footer role="contentinfo">
-        <p>@Commands.ShortcutCount shortcuts in total</p>
-        <p>
-            Copyright &copy; 2013 
-            <a href="http://madskristensen.net" rel="me author publisher">Mads Kristensen</a>
-        </p>
-    </footer>
+	<footer role="contentinfo">
+		<p>@Commands.ShortcutCount shortcuts in total</p>
+		<p>
+			Copyright &copy; 2013
+			<a href="http://madskristensen.net" rel="me author publisher">Mads Kristensen</a>
+		</p>
+	</footer>
 </body>
 </html>
+
+@functions{
+	private string Fingerprint(string rootRelativePath, string cdnPath = "")
+	{
+		if (!string.IsNullOrEmpty(cdnPath) && !Context.IsDebuggingEnabled)
+		{
+			return cdnPath;
+		}
+
+		string relative = VirtualPathUtility.ToAbsolute("~" + rootRelativePath);
+		string absolute = Server.MapPath(relative);
+
+		if (!File.Exists(absolute))
+		{
+			throw new FileNotFoundException("File not found", absolute);
+		}
+
+		DateTime date = File.GetLastWriteTime(absolute);
+		int index = relative.LastIndexOf('/');
+
+		return relative.Insert(index, "/v-" + date.Ticks);
+	}
+}
