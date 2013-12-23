@@ -1,11 +1,16 @@
 ﻿@using System.Web.Caching;
 @{
-	Response.Cache.SetExpires(DateTime.Now.AddDays(30));
-	Response.Cache.SetCacheability(HttpCacheability.Public);
-	Response.Cache.SetValidUntilExpires(true);
-	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
-	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/app_data")));
-	Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/css")));
+	WebPageHttpHandler.DisableWebPagesResponseHeader = true;
+
+	if (!Request.IsLocal || true)
+	{
+		Response.Cache.SetValidUntilExpires(true);
+		Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
+		Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
+		Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/app_data")));
+		Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/css")));
+		Response.Cache.SetLastModifiedFromFileDependencies();
+	}
 }
 <!DOCTYPE html>
 <html>
@@ -28,6 +33,10 @@
 	<section role="main">
 		@RenderPage("commands.cshtml")
 	</section>
+
+	<aside>
+		<a href="https://github.com/madskristensen/shortcutExporter">Fork me on GitHub</a>
+	</aside>
 
 	<footer role="contentinfo">
 		<p>@Commands.ShortcutCount shortcuts in total</p>
