@@ -2,7 +2,7 @@
 @{
 	WebPageHttpHandler.DisableWebPagesResponseHeader = true;
 
-	if (!Request.IsLocal || true)
+	if (!Request.IsLocal)
 	{
 		Response.Cache.SetExpires(DateTime.Now.AddDays(30));
 		Response.Cache.SetValidUntilExpires(true);

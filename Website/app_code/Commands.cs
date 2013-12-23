@@ -1,58 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Web;
 using System.Web.Hosting;
-using System.Xml;
+using System.Xml.Linq;
 
-/// <summary>
-/// Summary description for Commands
-/// </summary>
 public class Commands
 {
     public static int ShortcutCount = 0;
 
     public static Dictionary<string, List<Binding>> GenerateList()
     {
-        Dictionary<string, List<Binding>> dic = new Dictionary<string, List<Binding>>();
         ShortcutCount = 0;
 
-        XmlDocument doc = new XmlDocument();
-        doc.Load(HostingEnvironment.MapPath("~/app_data/commands.xml"));
-        string currentPrefix = string.Empty;
-        Binding lastBinding = new Binding();
+        Dictionary<string, List<Binding>> dic = new Dictionary<string, List<Binding>>();
+        XDocument doc = XDocument.Load(HostingEnvironment.MapPath("~/app_data/commands.xml"));
+        Binding prev = new Binding();
 
-        foreach (XmlNode node in doc.SelectNodes("//command"))
+        foreach (XElement node in doc.Descendants("command"))
         {
-            string name = node.Attributes["name"].InnerText;
-            string shortcut = node.Attributes["shortcut"].InnerText;
-            int index = name.IndexOf('.');
-            string prefix = index > 0 ? CleanName(name.Substring(0, index))  : "Misc";
-            string displayName = index > 0 ? name.Substring(name.LastIndexOf('.') + 1) : name;
+            string name = node.Attribute("name").Value;
+            string shortcut = node.Attribute("shortcut").Value;
 
-            if (currentPrefix != prefix)
-            {
-                dic[prefix] = new List<Binding>();
-                currentPrefix = prefix;
-            }
+            Binding binding = prev.FullName == name ? prev : CreateBinding(dic, name, shortcut);
 
-            if (lastBinding.FullName == name)
-            {
-                lastBinding.Shortcuts.Add(shortcut);
-            }
-            else
-            {
-                Binding binding = new Binding(name, CleanName(displayName), shortcut);
+            if (!binding.Shortcuts.Contains(shortcut))
+                prev.Shortcuts.Add(shortcut);
 
-                dic[prefix].Add(binding);
-                lastBinding = binding;
-            }
-            
+            prev = binding;
             ShortcutCount += 1;
         }
-        
+
         return dic;
+    }
+
+    private static Binding CreateBinding(Dictionary<string, List<Binding>> dic, string name, string shortcut)
+    {
+        int index = name.IndexOf('.');
+        string displayName = index > 0 ? name.Substring(name.LastIndexOf('.') + 1) : name;
+        string prefix = index > 0 ? CleanName(name.Substring(0, index)) : "Misc";
+        Binding binding = new Binding(name, CleanName(displayName), shortcut);
+
+        if (!dic.ContainsKey(prefix))
+            dic[prefix] = new List<Binding>();
+
+        dic[prefix].Add(binding);
+
+        return binding;
     }
 
     public static string CleanName(string name)
