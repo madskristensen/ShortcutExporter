@@ -1,5 +1,6 @@
 ﻿@using System.Web.Caching;
 @{
+    string version = Request.QueryString["version"];
     WebPageHttpHandler.DisableWebPagesResponseHeader = true;
 
     if (!Request.IsLocal)
@@ -20,16 +21,16 @@
     <meta charset="utf-8" />
     <title>Visual Studio 2013 keyboard shortcuts - complete list</title>
     <link rel="icon" href="@Fingerprint("/favicon.ico")" type="image/x-icon" />
-    <meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio 2013" />
-    <meta name="keywords" content="shortcut, shortcuts, keybinding, vs, visual studio" />
+    <meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio @version" />
+    <meta name="keywords" content="shortcut, shortcuts, keybinding, key binding, vs, visual studio @version" />
     <style>@Html.Raw(File.ReadAllText(Server.MapPath("~/css/site.min.css")))</style>
 </head>
 <body>
 
     <header role="banner">
-        <h1>Visual Studio @Request.QueryString["version"] keyboard shortcuts</h1>
+        <h1>Visual Studio @version keyboard shortcuts</h1>
         <h2>The complete list</h2>
-        @if (Request.QueryString["version"] == "2013")
+        @if (version == "2013")
         {
             <a href="/2012/">Visual Studio 2012 Shortcuts</a>
         }

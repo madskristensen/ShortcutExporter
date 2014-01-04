@@ -1,4 +1,7 @@
-﻿body {
+﻿@link: dodgerblue;
+@headlines: forestgreen;
+
+body {
     font: 15px arial;
     margin: 0;
     padding: 0;
@@ -16,7 +19,7 @@ header {
     }
 
     a {
-        color: dodgerblue;
+        color: @link;
         margin-top: 20px;
         display: inline-block;
     }
@@ -41,8 +44,8 @@ section {
 
     h3 {
         font-size: 1.2em;
-        border-bottom: 1px solid dodgerblue;
-        color: forestgreen;
+        border-bottom: 1px solid @link;
+        color: @headlines;
     }
 
     dl {
@@ -60,7 +63,7 @@ section {
 
         &:before {
             content: '→ ';
-            color: dodgerblue;
+            color: @link;
         }
     }
 }
