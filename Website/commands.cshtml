@@ -1,17 +1,14 @@
 ﻿@{
-var bindings = Commands.GenerateList(Request.QueryString["version"]);
+var bindings = Commands.GenerateList(Model);
 
 foreach (string key in bindings.Keys)
 {
 <article>
 <h3>@key</h3>
 <dl>
-@foreach (Binding binding in bindings[key])
-{
+@foreach (Binding binding in bindings[key]){
 <dt>@binding.DisplayName</dt>
-foreach (string shortcut in binding.Shortcuts) {<dd>@shortcut</dd>}
-}
+foreach (string shortcut in binding.Shortcuts) {<dd>@shortcut</dd>}}
 </dl>
 </article>
-}
-}
+}}

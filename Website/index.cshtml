@@ -10,13 +10,14 @@
         Response.Cache.SetCacheability(HttpCacheability.Public);
         Response.Cache.VaryByParams["version"] = true;
         Response.AddFileDependency(Server.MapPath("~/index.cshtml"));
-        Response.AddFileDependency(Server.MapPath("~/app_data/commands.xml"));
+        Response.AddFileDependency(Server.MapPath("~/app_data/" + version + ".xml"));
         Response.AddFileDependency(Server.MapPath("~/css/site.min.css"));
+        Response.AddFileDependency(Server.MapPath("~/site.appcache"));
         Response.Cache.SetLastModifiedFromFileDependencies();
     }
 }
 <!DOCTYPE html>
-<html manifest="/site.appcache" itemscope itemtype="http://schema.org/WebPage">
+<html manifest="@Fingerprint("/site.appcache")" itemscope itemtype="http://schema.org/WebPage">
 <head>
     <meta charset="utf-8" />
     <title>Visual Studio 2013 keyboard shortcuts - complete list</title>
@@ -41,7 +42,7 @@
     </header>
     
     <section role="main">
-        @RenderPage("commands.cshtml")
+        @RenderPage("commands.cshtml", version)
     </section>
 
     <aside>
