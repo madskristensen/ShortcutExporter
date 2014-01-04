@@ -46,7 +46,7 @@ namespace MadsKristensen.ShortcutExporter
             {
                 AddExtension = true,
                 DefaultExt = ".xml",
-                FileName = "css-schema.xml",
+                FileName = GetVersion() + ".xml",
                 CheckPathExists = true,
                 Filter = "XML Files (*.xml)|*.xml|All files (*.*)|*.*",
             };
@@ -55,6 +55,19 @@ namespace MadsKristensen.ShortcutExporter
             {
                 WriteDocument(dialog.FileName);
             }
+        }
+
+        private string GetVersion()
+        {
+            switch (_dte.Version)
+            {
+                case "11.0":
+                    return "2012";
+                case "12.0":
+                    return "2013";
+            }
+
+            return "2013";
         }
 
         private void WriteDocument(string fileName)

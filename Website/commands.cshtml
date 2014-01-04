@@ -1,5 +1,5 @@
 ﻿@{
-var bindings = Commands.GenerateList();
+var bindings = Commands.GenerateList(Request.QueryString["version"]);
 
 foreach (string key in bindings.Keys)
 {

@@ -7,12 +7,12 @@ public class Commands
 {
     public static int ShortcutCount = 0;
 
-    public static Dictionary<string, List<Binding>> GenerateList()
+    public static Dictionary<string, List<Binding>> GenerateList(string version)
     {
         ShortcutCount = 0;
 
         Dictionary<string, List<Binding>> dic = new Dictionary<string, List<Binding>>();
-        XDocument doc = XDocument.Load(HostingEnvironment.MapPath("~/app_data/commands.xml"));
+        XDocument doc = XDocument.Load(HostingEnvironment.MapPath("~/app_data/" + version + ".xml"));
         Binding prev = new Binding();
 
         foreach (XElement node in doc.Descendants("command"))
