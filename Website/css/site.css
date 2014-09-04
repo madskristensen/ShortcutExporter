@@ -82,7 +82,6 @@ footer p:first-child {
 }
 footer a {
   color: white;
-  text-decoration: none;
 }
 @media only screen and (max-width: 1024px) {
   h1 {
