@@ -1,4 +1,4 @@
-body {
+﻿body {
   font: 15px arial;
   margin: 0;
   padding: 0;
@@ -14,10 +14,17 @@ header h1 {
   margin: 0;
   padding: 0;
 }
-header a {
-  color: #1e90ff;
-  margin-top: 20px;
+header ul {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+}
+header ul:before {
+  content: "Visual Studio ";
+}
+header ul li {
   display: inline-block;
+  margin: 0 .5em;
 }
 section {
   -moz-columns: 350px auto;
@@ -99,4 +106,4 @@ footer a {
     display: none;
   }
 }
-/*# sourceMappingURL=C:/Users/madsk/Documents/Visual Studio 2013/Projects/ShortcutExporter/Website/css/site.css.map */
+/*# sourceMappingURL=site.css.map */

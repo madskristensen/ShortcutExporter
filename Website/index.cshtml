@@ -1,95 +1,94 @@
 ﻿@using System.Web.Caching;
 @{
-    string version = Request.QueryString["version"];
-    WebPageHttpHandler.DisableWebPagesResponseHeader = true;
+	string version = Request.QueryString["version"];
+	WebPageHttpHandler.DisableWebPagesResponseHeader = true;
 
-    if (!Request.IsLocal)
-    {
-        Response.Cache.SetExpires(DateTime.Now.AddDays(30));
-        Response.Cache.SetValidUntilExpires(true);
-        Response.Cache.SetCacheability(HttpCacheability.Public);
-        Response.Cache.VaryByParams["version"] = true;
-        Response.AddFileDependency(Server.MapPath("~/index.cshtml"));
-        Response.AddFileDependency(Server.MapPath("~/app_data/" + version + ".xml"));
-        Response.AddFileDependency(Server.MapPath("~/css/site.min.css"));
-        Response.AddFileDependency(Server.MapPath("~/site.appcache"));
-        Response.Cache.SetLastModifiedFromFileDependencies();
-    }
+	if (!Request.IsLocal)
+	{
+		Response.Cache.SetExpires(DateTime.Now.AddDays(30));
+		Response.Cache.SetValidUntilExpires(true);
+		Response.Cache.SetCacheability(HttpCacheability.Public);
+		Response.Cache.VaryByParams["version"] = true;
+		Response.AddFileDependency(Server.MapPath("~/index.cshtml"));
+		Response.AddFileDependency(Server.MapPath("~/app_data/" + version + ".xml"));
+		Response.AddFileDependency(Server.MapPath("~/css/site.min.css"));
+		Response.AddFileDependency(Server.MapPath("~/site.appcache"));
+		Response.Cache.SetLastModifiedFromFileDependencies();
+	}
 }
 <!DOCTYPE html>
 <html manifest="@Fingerprint("/site.appcache")" itemscope itemtype="http://schema.org/WebPage">
 <head>
-    <meta charset="utf-8" />
-    <title>Visual Studio 2013 keyboard shortcuts - complete list</title>
-    <link rel="icon" href="@Fingerprint("/favicon.ico")" type="image/x-icon" />
-    <meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio @version" />
-    <meta name="keywords" content="shortcut, shortcuts, keybinding, key binding, vs, visual studio @version" />
-    <style>@Html.Raw(File.ReadAllText(Server.MapPath("~/css/site.min.css")))</style>
+	<meta charset="utf-8" />
+	<title>Visual Studio 2013 keyboard shortcuts - complete list</title>
+	<link rel="icon" href="@Fingerprint("/favicon.ico")" type="image/x-icon" />
+	<meta name="description" content="A complete list of all keyboard shortcuts in Visual Studio @version" />
+	<meta name="keywords" content="shortcut, shortcuts, keybinding, key binding, vs, visual studio @version" />
+	<style>@Html.Raw(File.ReadAllText(Server.MapPath("~/css/site.min.css")))</style>
 </head>
 <body>
 
-    <header role="banner">
-        <h1>Visual Studio @version keyboard shortcuts</h1>
-        <h2>The complete list</h2>
-        @if (version == "2013")
-        {
-            <a href="/2012/">Visual Studio 2012 Shortcuts</a>
-        }
-        else
-        {
-            <a href="/2013/">Visual Studio 2013 Shortcuts</a>
-        }
-    </header>
-    
-    <section role="main">
-        @RenderPage("commands.cshtml", version)
-    </section>
+	<header role="banner">
+		<h1>Visual Studio @version keyboard shortcuts</h1>
+		<h2>The complete list</h2>
+		<nav>
+			<ul>
+				<li><a href="/2012/">2012</a></li>
+				<li><a href="/2013/">2013</a></li>
+				<li><a href="/14/">14</a></li>
+			</ul>
+		</nav>
+	</header>
 
-    <aside>
-        <a href="https://github.com/madskristensen/shortcutExporter">Fork me on GitHub</a>
-    </aside>
+	<section role="main">
+		@RenderPage("commands.cshtml", version)
+	</section>
 
-    <footer role="contentinfo">
-        <p>@Commands.ShortcutCount shortcuts in total</p>
-        <p>
-            Copyright &copy; 2014
-            <a href="http://madskristensen.net" rel="me author publisher">Mads Kristensen</a>
-        </p>
-    </footer>
+	<aside>
+		<a href="https://github.com/madskristensen/shortcutExporter">Fork me on GitHub</a>
+	</aside>
 
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+	<footer role="contentinfo">
+		<p>@Commands.ShortcutCount shortcuts in total</p>
+		<p>
+			Copyright &copy; 2014
+			<a href="http://madskristensen.net" rel="me author publisher">Mads Kristensen</a>
+		</p>
+	</footer>
+
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
             m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-322803-2', 'visualstudioshortcuts.com');
-        ga('send', 'pageview');
-    </script>
+		ga('create', 'UA-322803-2', 'visualstudioshortcuts.com');
+		ga('send', 'pageview');
+	</script>
 </body>
 </html>
 
 @functions{
-    private string Fingerprint(string rootRelativePath, string cdnPath = "")
-    {
-        if (!string.IsNullOrEmpty(cdnPath) && !Context.IsDebuggingEnabled)
-        {
-            return cdnPath;
-        }
+	private string Fingerprint(string rootRelativePath, string cdnPath = "")
+	{
+		if (!string.IsNullOrEmpty(cdnPath) && !Context.IsDebuggingEnabled)
+		{
+			return cdnPath;
+		}
 
-        string relative = VirtualPathUtility.ToAbsolute("~" + rootRelativePath);
-        string absolute = Server.MapPath(relative);
+		string relative = VirtualPathUtility.ToAbsolute("~" + rootRelativePath);
+		string absolute = Server.MapPath(relative);
 
-        if (!File.Exists(absolute))
-        {
-            throw new FileNotFoundException("File not found", absolute);
-        }
+		if (!File.Exists(absolute))
+		{
+			throw new FileNotFoundException("File not found", absolute);
+		}
 
-        DateTime date = File.GetLastWriteTime(absolute);
-        int index = relative.LastIndexOf('/');
+		DateTime date = File.GetLastWriteTime(absolute);
+		int index = relative.LastIndexOf('/');
 
-        return relative.Insert(index, "/v-" + date.Ticks);
-    }
+		return relative.Insert(index, "/v-" + date.Ticks);
+	}
 }
