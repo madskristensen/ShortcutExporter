@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortcutExporter", "ShortcutExporter\ShortcutExporter.csproj", "{09156290-F525-4D33-98E3-DEDFA04C8FC2}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website(7)", "http://localhost:47788", "{3FCDAB28-255F-4DF8-A2F8-DA1938EFA00E}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website(3)", "http://localhost:47788", "{3FCDAB28-255F-4DF8-A2F8-DA1938EFA00E}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
@@ -30,6 +30,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1FD16CEE-072C-4153-9A12-80390BF49800}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		README.md = README.md
 		screenshot.png = screenshot.png
 	EndProjectSection
