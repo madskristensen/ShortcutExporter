@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="7b562864-ea1c-40d0-b3a9-55618e1d1e09" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
-    <DisplayName>Shortcut Exporter</DisplayName>
+    <DisplayName>Keyboard Shortcut Exporter</DisplayName>
     <Description>Information about my package</Description>
     <License>License.txt</License>
     <Icon>Resources\logo.png</Icon>
