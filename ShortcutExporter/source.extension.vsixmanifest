@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="7b562864-ea1c-40d0-b3a9-55618e1d1e09" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
     <DisplayName>Keyboard Shortcut Exporter</DisplayName>
-    <Description>Information about my package</Description>
+    <Description xml:space="preserve">Exports all Visual Studio keyboard shortcuts to a simple XML file</Description>
     <License>License.txt</License>
     <Icon>Resources\logo.png</Icon>
     <PreviewImage>Resources\preview.png</PreviewImage>
