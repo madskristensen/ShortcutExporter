@@ -65,6 +65,10 @@ namespace MadsKristensen.ShortcutExporter
                     return "2012";
                 case "12.0":
                     return "2013";
+                case "14.0":
+                    return "2015";
+                case "15.0":
+                    return "2017";
             }
 
             return "2013";
