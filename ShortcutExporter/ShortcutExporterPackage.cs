@@ -87,6 +87,14 @@ namespace MadsKristensen.ShortcutExporter
             }
         }
 
+        private static void Print(XmlWriter writer, EnvDTE.Command command, string shortcut)
+        {
+            writer.WriteStartElement("command");
+            writer.WriteAttributeString("shortcut", shortcut);
+            writer.WriteAttributeString("name", command.Name);
+            writer.WriteEndElement();
+        }
+
         private void WriteCommands(XmlWriter writer)
         {
             List<Command> commands = GetCommands();
@@ -101,10 +109,7 @@ namespace MadsKristensen.ShortcutExporter
 
                     foreach (string shortcut in shortcuts)
                     {
-                        writer.WriteStartElement("command");
-                        writer.WriteAttributeString("shortcut", shortcut);
-                        writer.WriteAttributeString("name", command.Name);
-                        writer.WriteEndElement();
+                        Print(writer, command, shortcut);
                     }
                 }
             }
