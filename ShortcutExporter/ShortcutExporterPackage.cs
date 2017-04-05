@@ -87,12 +87,28 @@ namespace MadsKristensen.ShortcutExporter
             }
         }
 
-        private static void Print(XmlWriter writer, EnvDTE.Command command, string shortcut)
+        private static void Print(XmlWriter writer, EnvDTE.Command command, object[] bindings)
         {
-            writer.WriteStartElement("command");
-            writer.WriteAttributeString("shortcut", shortcut);
-            writer.WriteAttributeString("name", command.Name);
-            writer.WriteEndElement();
+            foreach (object binding in bindings)
+            {
+                var shortcut = binding.ToString();
+                var scopeIndex = shortcut.IndexOf("::");
+                string scope = "";
+                if (scopeIndex >= 0)
+                {
+                    scope = shortcut.Substring(0, scopeIndex);
+                    shortcut = shortcut.Substring(scopeIndex + 2);
+                }
+
+                writer.WriteStartElement("command");
+                if (scope.Length > 0)
+                {
+                    writer.WriteAttributeString("scope", scope);
+                }
+                writer.WriteAttributeString("shortcut", shortcut);
+                writer.WriteAttributeString("name", command.Name);
+                writer.WriteEndElement();
+            }
         }
 
         private void WriteCommands(XmlWriter writer)
@@ -105,12 +121,7 @@ namespace MadsKristensen.ShortcutExporter
 
                 if (bindings != null && bindings.Length > 0)
                 {
-                    var shortcuts = GetBindings(bindings);
-
-                    foreach (string shortcut in shortcuts)
-                    {
-                        Print(writer, command, shortcut);
-                    }
+                    Print(writer, command, bindings);
                 }
             }
         }
@@ -126,16 +137,6 @@ namespace MadsKristensen.ShortcutExporter
             }
 
             return commands;
-        }
-
-        private static IEnumerable<string> GetBindings(IEnumerable<object> bindings)
-        {
-            var result = bindings.Select(binding => binding.ToString().IndexOf("::") >= 0
-                ? binding.ToString().Substring(binding.ToString().IndexOf("::") + 2)
-                : binding.ToString()).Distinct();
-
-
-            return result;
         }
     }
 }
