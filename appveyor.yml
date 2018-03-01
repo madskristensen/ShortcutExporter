@@ -19,5 +19,5 @@ deploy:
   - provider: Environment
     name: Chocolatey
     on:
-      branch: master
+      branch: try-2015-build
       appveyor_repo_commit_message_extended: /\[release\]/
