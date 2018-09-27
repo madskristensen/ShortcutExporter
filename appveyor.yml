@@ -7,6 +7,7 @@ before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
 
 build_script:
+  - nuget restore
   - msbuild ShortcutExporter/ShortcutExporter.csproj /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
